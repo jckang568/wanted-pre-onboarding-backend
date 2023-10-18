@@ -101,7 +101,66 @@
 ## 4. 구현과정
 
 1. 데이터베이스 설계
-```sql
+```mermaid
+classDiagram
+direction BT
+class company {
+   varchar(255) company_name  /* 회사명 */
+   text company_description  /* 회사설명 */
+   int(10) unsigned location_id  /* 위치id */
+   timestamp created_at  /* 생성일시 */
+   timestamp updated_at  /* 수정일시 */
+   int(10) unsigned company_id  /* 회사id */
+}
+class country {
+   varchar(50) country_name  /* 국가이름 */
+   timestamp created_at  /* 생성일시 */
+   timestamp updated_at  /* 수정일시 */
+   char(2) country_id  /* 국가id */
+}
+class job_postings {
+   int(10) unsigned company_id  /* 회사id */
+   varchar(255) position  /* 채용포지션 */
+   int(10) reward_amount  /* 채용보상금 */
+   text job_description  /* 채용내용 */
+   text required_skills  /* 사용기술 */
+   timestamp created_at  /* 생성일시 */
+   timestamp updated_at  /* 수정일시 */
+   int(10) unsigned job_posting_id  /* 채용공고id */
+}
+class location {
+   varchar(255) street_address  /* 주소 */
+   varchar(12) postal_code  /* 우편번호 */
+   varchar(30) city  /* 도시명 */
+   state_province  /* 주/도(행정구역) */ varchar(30)
+   char(2) country_id  /* 국가id */
+   timestamp created_at  /* 생성일시 */
+   timestamp updated_at  /* 수정일시 */
+   int(10) unsigned location_id  /* 위치id */
+}
+class user_application {
+   int(10) unsigned job_posting_id  /* 채용공고id */
+   int(10) unsigned user_id  /* 사용자id */
+   timestamp created_at  /* 생성일시 */
+   timestamp updated_at  /* 수정일시 */
+   int(10) unsigned application_id  /* 지원자id */
+}
+class user {
+   varchar(255) username  /* 이름 */
+   varchar(255) email  /* 이메일 */
+   varchar(255) password  /* 비밀번호 */
+   timestamp created_at  /* 생성일시 */
+   timestamp updated_at  /* 수정일시 */
+   int(10) unsigned user_id  /* 사용자id */
+}
+
+415023
+
+company  -->  location : location_id
+job_postings  -->  company : company_id
+location  -->  country : country_id
+user_application  -->  job_postings : job_posting_id
+user_application  -->  user : user_id
 
 
 ```
